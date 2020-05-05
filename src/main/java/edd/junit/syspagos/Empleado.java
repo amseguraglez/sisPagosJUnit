@@ -13,7 +13,7 @@ public class Empleado {
     private int numero_empleado;
     String nombre_empleado;
     private int meses_trabajo;
-    boolean Directivo;
+    boolean directivo;
     Prima prima;
 
 
@@ -22,63 +22,63 @@ public class Empleado {
 
         establecerNumero_empleado(numEmpleado);
         estableceNombre_empleado(nomEmpleado);
-        estableceMeses_Trabajo(mesesT);
+        establecerMeses_Trabajo(mesesT);
         establecerSerDirectivo(dir);
 
         if (getDirectivo() && getMeses_trabajo() >=12){
             setPrima(Prima.P1);
             return Prima.P1;
-        }
-        if(!getDirectivo() && getMeses_trabajo() >12){
+        } else if(!getDirectivo() && getMeses_trabajo() >=12){
             setPrima(Prima.P2);
             return Prima.P2;
-        }
-        if (getDirectivo() && getMeses_trabajo()<12){
+        } else if (getDirectivo() && getMeses_trabajo()<12){
             setPrima(Prima.P3);
             return Prima.P3;
-        }
-        if (!getDirectivo() && getMeses_trabajo()<12){
+        } else if (!getDirectivo() && getMeses_trabajo()<12){
             setPrima(Prima.P4);
             return Prima.P4;
-        }
-        throw new RuntimeException();
+        } else
+            throw new RuntimeException();
     }
 
 
     public void establecerNumero_empleado(String nEmpleado) throws NumeroEmpleadoException {
         int n;
-        if (nEmpleado.matches("^\\d+$")){
+        if (nEmpleado.matches("^[0-9]{3}$")){
             n= Integer.parseInt(nEmpleado);
-            if (n>000 && n < 1000 ){
+            if (n>000 && n<=999 ){
                 setNumero_empleado(n);
                 return;
-            }
-        }
-        throw new NumeroEmpleadoException();
+            } else
+                throw new NumeroEmpleadoException();
+        } else
+             throw new NumeroEmpleadoException();
 //        String numeroCeros = String.valueOf(obj.format("%05d", numero));
     }
 
     public void estableceNombre_empleado(String nombre_empleado) throws NombreEmpleadoException {
-
         if (Pattern.matches("^[a-zA-Z0-9]*$", nombre_empleado)){
-            if (nombre_empleado.length()>=10){
+            if (nombre_empleado.length()<=10){
                 setNombre_empleado(nombre_empleado);
                 return;
-            }
-        }
-        throw new NombreEmpleadoException();
+            } else
+                throw new NombreEmpleadoException();
+        } else
+            throw new NombreEmpleadoException();
     }
 
-    public void estableceMeses_Trabajo(String mesesT) throws MesesTrabajoException {
+    public void establecerMeses_Trabajo(String mesesT) throws MesesTrabajoException {
         int n;
-        if (mesesT.matches("^\\d+$")){
+        // "^\d+$"
+        if (mesesT.matches("^[0-9]{3}$")){
             n= Integer.parseInt(mesesT);
-            if (n>=000 && n < 1000 ){
-                setNumero_empleado(n);
+            if (n>=000 && n <=999){
+                setMeses_trabajo(n);
                 return;
-            }
-        }
-        throw new MesesTrabajoException();
+            } else
+                throw new MesesTrabajoException();
+        } else
+            throw new MesesTrabajoException();
     }
 
     public void establecerSerDirectivo(String directivo) throws CargoException {
@@ -88,9 +88,10 @@ public class Empleado {
                 setDirectivo(true);
             }else if(caracter[0]=='-'){
                 setDirectivo(false);
-            }
-        }
-        throw new CargoException();
+            } else
+                throw new CargoException();
+        } else
+            throw new CargoException();
     }
 
     public int getNumero_empleado() {
@@ -118,11 +119,11 @@ public class Empleado {
     }
 
     public boolean getDirectivo() {
-        return Directivo;
+        return directivo;
     }
 
     private void setDirectivo(boolean directivo) {
-        Directivo = directivo;
+        this.directivo = directivo;
     }
 
     public Prima getPrima() {
