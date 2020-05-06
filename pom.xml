@@ -35,6 +35,7 @@
     <finalName>MaquinaVending</finalName>
     <plugins>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.8.1</version>
         <configuration>
@@ -46,6 +47,10 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>3.0.0-M4</version>
+        <configuration>
+          <testFailureIgnore>true</testFailureIgnore>
+          <shutdown>kill</shutdown> <!-- Use it if required-->
+        </configuration>
       </plugin>
 <!--      <plugin>-->
 <!--        <groupId>org.apache.maven.plugins</groupId>-->
@@ -76,7 +81,7 @@
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
-        <version>0.8.2</version>
+        <version>0.8.3</version>
         <executions>
           <execution>
           <goals>
